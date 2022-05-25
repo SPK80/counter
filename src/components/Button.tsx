@@ -4,7 +4,7 @@ import s from './Button.module.css'
 type ButtonPropsType = {
     name: string
     onClick: () => void
-    disabled: boolean
+    disabled?: boolean
 }
 
 export const Button: React.FC<ButtonPropsType> =
