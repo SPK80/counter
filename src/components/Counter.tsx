@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
-
-import s from './App.module.css'
+import s from "./Counter.module.css";
 import {Monitor} from "./Monitor";
 import {Button} from "./Button";
 
-function App() {
+export const Counter = () => {
     
     const defCount = 0;
     const maxCount = 5;
@@ -23,9 +22,8 @@ function App() {
     const isIncBtnDisabled: boolean = count === maxCount
     const isResetBtnDisabled: boolean = count === defCount
     
-    
     return (
-        <div className={s.app}>
+        <div className={s.counter}>
             <Monitor
                 count={count}
                 isMaxValue={count >= maxCount}
@@ -47,5 +45,3 @@ function App() {
         </div>
     )
 }
-
-export default App;
