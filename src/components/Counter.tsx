@@ -3,12 +3,14 @@ import s from "./Counter.module.css";
 import {Monitor} from "./Monitor";
 import {Button} from "./Button";
 
-export const Counter = () => {
+type CounterType = {
+    startValue: number
+    maxValue: number
+}
+
+export const Counter: React.FC<CounterType> = ({startValue, maxValue}) => {
     
-    const defCount = 0;
-    const maxCount = 5;
-    
-    const [count, setCount] = useState<number>(defCount)
+    const [count, setCount] = useState<number>(startValue)
     
     
     const onClickIncHandler = () => {
@@ -16,17 +18,17 @@ export const Counter = () => {
     };
     
     const onClickResetHandler = () => {
-        setCount(defCount)
+        setCount(startValue)
     };
     
-    const isIncBtnDisabled: boolean = count === maxCount
-    const isResetBtnDisabled: boolean = count === defCount
+    const isIncBtnDisabled: boolean = count === maxValue
+    const isResetBtnDisabled: boolean = count === startValue
     
     return (
         <div className={s.counter}>
             <Monitor
                 count={count}
-                isMaxValue={count >= maxCount}
+                isMaxValue={count >= maxValue}
             />
             
             <div className={s.buttonsPanel}>
