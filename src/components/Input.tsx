@@ -1,38 +1,35 @@
 import React, {ChangeEvent} from "react";
-import s from './InputNumber.module.css'
+import s from './Input.module.css'
 
-type InputNumberType = {
-    value: number
+type InputType = {
+    value: string
     inputClassName?: string
-    onChangeNumber: (value: number) => void
+    onChangeValue: (value: string) => void
     caption?: string
     captionClassName?: string
     errorMessage?: string
     errorClassName?: string
 }
 
-export const InputNumber: React.FC<InputNumberType> = (
+export const Input: React.FC<InputType> = (
     {
         value,
         inputClassName,
-        onChangeNumber,
+        onChangeValue,
         caption,
         captionClassName,
         errorMessage,
         errorClassName
     }) => {
-    
+
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        const newVal: number = +e.currentTarget.value
-        if (Number.isNaN(newVal)) return
-        
-        onChangeNumber(newVal)
+        onChangeValue(e.currentTarget.value)
     }
-    
+
     const finalCaptionClassName = `${s.caption} ${captionClassName ?? ''}`
     const finalInputClassName = `${s.input} ${inputClassName ?? ''} ${errorMessage ? s.errorInput:''} `
     const finalErrorClassName = `${s.error} ${errorClassName ?? ''}`
-    
+
     return (
         <>
             <div className={s.captionAndInputWrap}>

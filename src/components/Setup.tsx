@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Button} from "./Button";
-import {InputNumber} from "./InputNumber";
 import s from './Setup.module.css'
+import {Input} from "./Input";
 
 type SetupType = {
     confirm: (startValue: number, maxValue: number) => void
@@ -16,17 +16,25 @@ export const Setup: React.FC<SetupType> = ({confirm}) => {
         confirm(startValue, maxValue)
     }
 
+    const onChangeMaxValueHandler=(newValue:string)=>{
+        setMaxValue(+newValue)
+    }
+
+    const onChangeStartValueHandler=(newValue:string)=>{
+        setStartValue(+newValue)
+    }
+
     return (
         <div className={s.setup}>
-            <InputNumber
-                value={maxValue}
-                onChangeNumber={setMaxValue}
+            <Input
+                value={maxValue.toString()}
+                onChangeValue={onChangeMaxValueHandler}
                 caption={'max value:'}
                 errorMessage={'error max value'}
             />
-            <InputNumber
-                value={startValue}
-                onChangeNumber={setStartValue}
+            <Input
+                value={startValue.toString()}
+                onChangeValue={onChangeStartValueHandler}
                 caption={'start value:'}
                 // errorMessage={'error start value'}
             />
