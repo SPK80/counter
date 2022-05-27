@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import s from "./Counter.module.css";
 import {Monitor} from "./Monitor";
 import {Button} from "./Button";
@@ -6,44 +6,36 @@ import {Button} from "./Button";
 type CounterType = {
     startValue: number
     maxValue: number
+    counterValue: number
+    onClickInc: () => void
+    onClickReset: () => void
 }
 
-export const Counter: React.FC<CounterType> = ({startValue, maxValue}) => {
-    
-    const [count, setCount] = useState<number>(startValue)
-    
-    
-    const onClickIncHandler = () => {
-        setCount(count + 1)
-    };
-    
-    const onClickResetHandler = () => {
-        setCount(startValue)
-    };
-    
-    const isIncBtnDisabled: boolean = count === maxValue
-    const isResetBtnDisabled: boolean = count === startValue
-    
+export const Counter: React.FC<CounterType> = (props) => {
+
+    const isIncBtnDisabled: boolean = props.counterValue === props.maxValue
+    const isResetBtnDisabled: boolean = props.counterValue === props.startValue
+
     return (
         <div className={s.counter}>
             <Monitor
-                count={count}
-                isMaxValue={count >= maxValue}
+                count={props.counterValue}
+                isMaxValue={props.counterValue >= props.maxValue}
             />
-            
+
             <div className={s.buttonsPanel}>
                 <Button
                     name={'inc'}
-                    onClick={onClickIncHandler}
+                    onClick={props.onClickInc}
                     disabled={isIncBtnDisabled}
                 />
                 <Button
                     name={'reset'}
-                    onClick={onClickResetHandler}
+                    onClick={props.onClickReset}
                     disabled={isResetBtnDisabled}
                 />
             </div>
-        
+
         </div>
     )
 }

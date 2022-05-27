@@ -6,6 +6,16 @@ import {Setup} from "./Setup";
 function App() {
     const [startValue, setStartValue] = useState(0)
     const [maxValue, setMaxValue] = useState(5)
+
+    const [counterValue, setCounterValue] = useState<number>(startValue)
+
+    const onClickIncHandler = () => {
+        setCounterValue(counterValue + 1)
+    };
+
+    const onClickResetHandler = () => {
+        setCounterValue(startValue)
+    };
     
     const confirmHandler = (newStartValue: number, newMaxValue: number) => {
         setStartValue(newStartValue)
@@ -18,6 +28,9 @@ function App() {
             <Counter
                 startValue={startValue}
                 maxValue={maxValue}
+                counterValue={counterValue}
+                onClickInc={onClickIncHandler}
+                onClickReset={onClickResetHandler}
             />
         </div>
     );
