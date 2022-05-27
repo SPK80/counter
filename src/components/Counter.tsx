@@ -1,5 +1,7 @@
 import React from 'react';
-import s from "./Counter.module.css";
+import counterStyles from "./Counter.module.css";
+import panelStyles from './Panel.module.css'
+
 import {Monitor} from "./Monitor";
 import {Button} from "./Button";
 
@@ -17,13 +19,13 @@ export const Counter: React.FC<CounterType> = (props) => {
     const isResetBtnDisabled: boolean = props.counterValue === props.startValue
 
     return (
-        <div className={s.counter}>
+        <div className={counterStyles.counter +' ' +panelStyles.panel}>
             <Monitor
                 count={props.counterValue}
                 isMaxValue={props.counterValue >= props.maxValue}
             />
 
-            <div className={s.buttonsPanel}>
+            <div className={counterStyles.buttonsPanel}>
                 <Button
                     name={'inc'}
                     onClick={props.onClickInc}

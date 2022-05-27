@@ -1,0 +1,11 @@
+.panel{
+    padding: 10px;
+    border: 2px solid darkcyan;
+    border-radius: 10px;
+    background-color: darkslateblue;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    place-items: center;
+}

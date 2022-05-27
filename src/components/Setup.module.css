@@ -1,5 +1,9 @@
 .setup {
-    padding: 10px;
-    /*border: solid red;*/
-    width: 140px;
+    width: 150px;
+    height: 150px;
+    margin: 5px;
+}
+
+.caption{
+    color: yellow;
 }
