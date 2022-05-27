@@ -9,8 +9,8 @@ type SetupType = {
 
 export const Setup: React.FC<SetupType> = ({confirm}) => {
     
-    const [startValue, setStartValue] = useState('0')
-    const [maxValue, setMaxValue] = useState('5')
+    const [startValue, setStartValue] = useState<string>('0')
+    const [maxValue, setMaxValue] = useState<string>('5')
     
     const onClickSetHandler = () => {
         confirm(+startValue, +maxValue)

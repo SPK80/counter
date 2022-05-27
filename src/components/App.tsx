@@ -4,9 +4,8 @@ import {Counter} from "./Counter";
 import {Setup} from "./Setup";
 
 function App() {
-    const [startValue, setStartValue] = useState(0)
-    const [maxValue, setMaxValue] = useState(5)
-
+    const [startValue, setStartValue] = useState<number>(0)
+    const [maxValue, setMaxValue] = useState<number>(5)
     const [counterValue, setCounterValue] = useState<number>(startValue)
 
     const onClickIncHandler = () => {
