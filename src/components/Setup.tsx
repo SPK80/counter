@@ -1,6 +1,8 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {useState} from 'react';
 import {Button} from "./Button";
 import {InputNumber} from "./InputNumber";
+import s from './Setup.module.css'
+
 
 type SetupType = {
     confirm: (startValue: number, maxValue: number) => void
@@ -8,43 +10,32 @@ type SetupType = {
 
 
 export const Setup: React.FC<SetupType> = ({confirm}) => {
-
+    
     const [startValue, setStartValue] = useState(0)
     const [maxValue, setMaxValue] = useState(5)
-
-
+    
     const onSetHandler = () => {
         console.log('set')
         confirm(startValue, maxValue)
-    };
-
-
-    const onChangeStartValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setStartValue(+e.currentTarget.value)
-    };
-
-    const onChangeMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setMaxValue(+e.currentTarget.value)
-    };
-
+    }
+    
     return (
-        <div>
-            <div>
+        <div className={s.setup}>
+            <div className={s.inputs}>
                 <InputNumber
-                value={1}
-                onChangeNumber={console.log}
-                caption={'test'}
-                errorMessage={'error'}
-
+                    value={maxValue}
+                    onChangeNumber={setMaxValue}
+                    caption={'max value:'}
+                    captionClassName={s.caption}
+                    errorMessage={'error max value'}
                 />
-                <div>
-                    <span>max value:</span>
-                    <input value={maxValue} onChange={onChangeMaxValueHandler}/>
-                </div>
-                <div>
-                    <span>start value:</span>
-                    <input value={startValue} onChange={onChangeStartValueHandler}/>
-                </div>
+                <InputNumber
+                    value={startValue}
+                    onChangeNumber={setStartValue}
+                    caption={'start value:'}
+                    captionClassName={s.caption}
+                    // errorMessage={'error start value'}
+                />
             </div>
             <div>
                 <Button

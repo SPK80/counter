@@ -3,40 +3,44 @@ import s from './InputNumber.module.css'
 
 type InputNumberType = {
     value: number
-    className?: string
+    inputClassName?: string
     onChangeNumber: (value: number) => void
     caption?: string
     captionClassName?: string
-    errorMessage?: string|null
+    errorMessage?: string
     errorClassName?: string
 }
 
 export const InputNumber: React.FC<InputNumberType> = (
     {
         value,
-        className,
+        inputClassName,
         onChangeNumber,
         caption,
         captionClassName,
         errorMessage,
         errorClassName
     }) => {
-
+    
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const newVal: number = +e.currentTarget.value
         if (Number.isNaN(newVal)) return
-
+        
         onChangeNumber(newVal)
-    };
-
-    const finalCaptionClassName = `${s.errorMessage} ${captionClassName ? captionClassName : ''}`
-    const finalClassName = `${errorMessage ? s.errorInput : s.superInput} ${className}`
-
+    }
+    
+    const finalCaptionClassName = `${s.caption} ${captionClassName ?? ''}`
+    console.log(s)
+    const finalInputClassName = `${s.input} ${inputClassName ?? ''} ${errorMessage ? s.errorInput:''} `
+    const finalErrorClassName = `${s.error} ${errorClassName ?? ''}`
+    
     return (
-        <div>
-            {caption && <span className={finalCaptionClassName}>{caption}</span>}
-            <input className={finalClassName} value={value} onChange={onChangeHandler}/>
-            {errorMessage && <span className={errorClassName}>{errorMessage}</span>}
-        </div>
+        <>
+            <div className={s.captionAndInputWrap}>
+                {caption && <span className={finalCaptionClassName}>{caption}</span>}
+                <input className={finalInputClassName} value={value} onChange={onChangeHandler}/>
+            </div>
+            <div className={finalErrorClassName}>{errorMessage && <span>{errorMessage}</span>}</div>
+        </>
     )
 }
