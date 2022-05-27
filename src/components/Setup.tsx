@@ -13,7 +13,6 @@ export const Setup: React.FC<SetupType> = ({confirm}) => {
     const [maxValue, setMaxValue] = useState(5)
 
     const onSetHandler = () => {
-        console.log('set')
         confirm(startValue, maxValue)
     }
 

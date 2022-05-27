@@ -19,9 +19,10 @@ function App() {
     
     const confirmHandler = (newStartValue: number, newMaxValue: number) => {
         setStartValue(newStartValue)
+        setCounterValue(newStartValue)
         setMaxValue(newMaxValue)
     };
-    
+
     return (
         <div className={s.app}>
             <Setup confirm={confirmHandler}/>
