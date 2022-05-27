@@ -7,7 +7,7 @@ type InputType = {
     onChangeValue: (value: string) => void
     caption?: string
     captionClassName?: string
-    errorMessage?: string
+    errorMessage?: string | null
     errorClassName?: string
 }
 

@@ -8,39 +8,42 @@ type SetupType = {
 }
 
 export const Setup: React.FC<SetupType> = ({confirm}) => {
-
-    const [startValue, setStartValue] = useState(0)
-    const [maxValue, setMaxValue] = useState(5)
-
-    const onSetHandler = () => {
-        confirm(startValue, maxValue)
+    
+    const [startValue, setStartValue] = useState('0')
+    const [maxValue, setMaxValue] = useState('5')
+    
+    const onClickSetHandler = () => {
+        confirm(+startValue, +maxValue)
     }
-
-    const onChangeMaxValueHandler=(newValue:string)=>{
-        setMaxValue(+newValue)
+    
+    const onChangeMaxValueHandler = (newValue: string) => {
+        setMaxValue(newValue.trim())
     }
-
-    const onChangeStartValueHandler=(newValue:string)=>{
-        setStartValue(+newValue)
+    
+    const onChangeStartValueHandler = (newValue: string) => {
+        setStartValue(newValue.trim())
     }
-
+    
+    const isValidNumber = (value: string): boolean => !(Number.isNaN(+value) || !value)
+    
     return (
         <div className={s.setup}>
             <Input
-                value={maxValue.toString()}
+                value={maxValue}
                 onChangeValue={onChangeMaxValueHandler}
                 caption={'max value:'}
-                errorMessage={'error max value'}
+                errorMessage={isValidNumber(maxValue) ? null : 'Number is required'}
             />
             <Input
-                value={startValue.toString()}
+                value={startValue}
                 onChangeValue={onChangeStartValueHandler}
                 caption={'start value:'}
-                // errorMessage={'error start value'}
+                errorMessage={isValidNumber(startValue) ? null : 'Number is required'}
             />
             <Button
+                disabled={!(isValidNumber(startValue) && isValidNumber(maxValue))}
                 name={'set'}
-                onClick={onSetHandler}
+                onClick={onClickSetHandler}
             />
         </div>
     );
