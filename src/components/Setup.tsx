@@ -1,52 +1,38 @@
-import React, {useState} from 'react';
+import React from 'react';
 import setupStyles from './Setup.module.css'
 import panelStyles from './Panel.module.css'
 import {Button} from "./Button";
-import {Input} from "./Input";
+import {InputNumber} from "./InputNumber";
 
 type SetupType = {
-    confirm: (startValue: number, maxValue: number) => void
+    onConfirm: () => void
+    onChangeMaxValue: (value: number) => void
+    onChangeStartValue: (value: number) => void
+    maxValue: number
+    startValue: number
+    isSetButtonDisabled: boolean
 }
 
-export const Setup: React.FC<SetupType> = ({confirm}) => {
-    
-    const [startValue, setStartValue] = useState<string>('0')
-    const [maxValue, setMaxValue] = useState<string>('5')
-    
-    const onClickSetHandler = () => {
-        confirm(+startValue, +maxValue)
-    }
-    
-    const onChangeMaxValueHandler = (newValue: string) => {
-        setMaxValue(newValue.trim())
-    }
-    
-    const onChangeStartValueHandler = (newValue: string) => {
-        setStartValue(newValue.trim())
-    }
-    
-    const isValidNumber = (value: string): boolean => !(Number.isNaN(+value) || !value)
+export const Setup: React.FC<SetupType> = (props) => {
     
     return (
-        <div className={setupStyles.setup +' ' +panelStyles.panel}>
-            <Input
-                value={maxValue}
-                onChangeValue={onChangeMaxValueHandler}
+        <div className={setupStyles.setup + ' ' + panelStyles.panel}>
+            <InputNumber
+                value={props.maxValue}
+                onChangeValue={props.onChangeMaxValue}
                 caption={'max value:'}
-                errorMessage={isValidNumber(maxValue) ? null : 'Number is required'}
                 captionClassName={setupStyles.caption}
             />
-            <Input
-                value={startValue}
-                onChangeValue={onChangeStartValueHandler}
+            <InputNumber
+                value={props.startValue}
+                onChangeValue={props.onChangeStartValue}
                 caption={'start value:'}
-                errorMessage={isValidNumber(startValue) ? null : 'Number is required'}
                 captionClassName={setupStyles.caption}
             />
             <Button
-                disabled={!(isValidNumber(startValue) && isValidNumber(maxValue))}
+                disabled={props.isSetButtonDisabled}
                 name={'set'}
-                onClick={onClickSetHandler}
+                onClick={props.onConfirm}
             />
         </div>
     );

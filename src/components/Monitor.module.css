@@ -1,10 +1,7 @@
-.monitor{
+.monitor {
     width: 100%;
     height: 50px;
     text-align: center;
-    line-height: 50px;
-    font-size: 26px;
-
     background-color: cyan;
     border: 2px solid darkcyan;
     border-radius: 10px;
@@ -12,7 +9,24 @@
     text-shadow: #da3c69 0 0 1px;
 }
 
-.isMaxValue{
+.maxValue {
     color: red;
     border-color: red;
+    font-size: 26px;
+
+}
+
+.normValue {
+    color: darkmagenta;
+    font-size: 26px;
+}
+
+.info {
+    color: yellow;
+    font-size: 16px;
+}
+
+.error {
+    color: red;
+    font-size: 16px;
 }
