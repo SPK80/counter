@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './App.module.css'
 import {Counter} from "./Counter";
 import {Setup} from "./Setup";
@@ -13,6 +13,19 @@ function App() {
     
     const isStartValueIncorrect = (value: number) => value < 0
     const isMaxValueIncorrect = (startValue: number, maxValue: number) => maxValue < 0 || maxValue <= startValue
+    
+    useEffect(() => {
+        
+        let sv: number = +(localStorage['startValue'] ?? '0')
+        sv = Number.isNaN(sv) ? 0 : sv
+        setStartValue(sv)
+        
+        let mv: number = +(localStorage['maxValue'] ?? '5')
+        mv = Number.isNaN(sv) ? 0 : mv
+        setMaxValue(mv)
+        
+        setCounterValue(sv)
+    }, [])
     
     const isErrorInSetup = (startValue: number, maxValue: number) =>
         isStartValueIncorrect(startValue) || isMaxValueIncorrect(startValue, maxValue)
@@ -44,6 +57,9 @@ function App() {
         setMaxValue(maxValue)
         setCounterValue(startValue)
         setCounterMode("count")
+        localStorage['startValue'] = startValue
+        localStorage['maxValue'] = maxValue
+        
     };
     
     return (
