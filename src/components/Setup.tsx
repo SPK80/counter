@@ -11,6 +11,8 @@ type SetupType = {
     maxValue: number
     startValue: number
     isSetButtonDisabled: boolean
+    isMaxValueIncorrect: boolean
+    isStartValueIncorrect: boolean
 }
 
 export const Setup: React.FC<SetupType> = (props) => {
@@ -22,12 +24,14 @@ export const Setup: React.FC<SetupType> = (props) => {
                 onChangeValue={props.onChangeMaxValue}
                 caption={'max value:'}
                 captionClassName={setupStyles.caption}
+                error={props.isMaxValueIncorrect}
             />
             <InputNumber
                 value={props.startValue}
                 onChangeValue={props.onChangeStartValue}
                 caption={'start value:'}
                 captionClassName={setupStyles.caption}
+                error={props.isStartValueIncorrect}
             />
             <Button
                 disabled={props.isSetButtonDisabled}

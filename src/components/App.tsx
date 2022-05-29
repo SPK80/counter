@@ -11,17 +11,23 @@ function App() {
     const [counterValue, setCounterValue] = useState<number>(startValue)
     const [counterMode, setCounterMode] = useState<MonitorModeType>("count")
     
-    const isSetButtonDisabled = counterMode === "count" || startValue >= maxValue
+    const isStartValueIncorrect = (value: number) => value < 0
+    const isMaxValueIncorrect = (startValue: number, maxValue: number) => maxValue < 0 || maxValue <= startValue
+    
+    const isErrorInSetup = (startValue: number, maxValue: number) =>
+        isStartValueIncorrect(startValue) || isMaxValueIncorrect(startValue, maxValue)
+    
+    const isSetButtonDisabled = counterMode === "count" || isErrorInSetup(startValue, maxValue)
     
     const onChangeMaxValueHandler = (newMaxValue: number) => {
         setMaxValue(newMaxValue)
-        if (newMaxValue <= startValue) setCounterMode("error")
+        if (isErrorInSetup(startValue, newMaxValue)) setCounterMode("error")
         else setCounterMode("info")
     }
     
     const onChangeStartValueHandler = (newStartValue: number) => {
         setStartValue(newStartValue)
-        if (newStartValue >= maxValue) setCounterMode("error")
+        if (isErrorInSetup(newStartValue, maxValue)) setCounterMode("error")
         else setCounterMode("info")
     }
     
@@ -40,7 +46,6 @@ function App() {
         setCounterMode("count")
     };
     
-    
     return (
         <div className={s.app}>
             <Setup
@@ -48,6 +53,8 @@ function App() {
                 maxValue={maxValue}
                 startValue={startValue}
                 isSetButtonDisabled={isSetButtonDisabled}
+                isStartValueIncorrect={isStartValueIncorrect(startValue)}
+                isMaxValueIncorrect={isMaxValueIncorrect(startValue, maxValue)}
                 onChangeStartValue={onChangeStartValueHandler}
                 onChangeMaxValue={onChangeMaxValueHandler}
             />

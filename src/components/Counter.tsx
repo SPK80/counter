@@ -19,6 +19,7 @@ export const Counter: React.FC<CounterType> = (props) => {
     
     const isIncBtnDisabled: boolean = props.mode !== "count" || props.counterValue === props.maxValue
     const isResetBtnDisabled: boolean = props.mode !== "count" || props.counterValue === props.startValue
+    
     let monitorData = ''
     switch (props.mode) {
         case "count" || "isMaxVal":

@@ -5,16 +5,19 @@
 .input {
     width: 50px;
 }
-.errorInput{
+
+.errorInput {
     border-color: red;
+    background-color: red;
 }
+
 .error {
     color: red;
     font-size: 12px;
     min-height: 16px;
 }
 
-.captionAndInputWrap{
+.captionAndInputWrap {
     display: flex;
     justify-content: space-between;
 }
