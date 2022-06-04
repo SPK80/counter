@@ -11,8 +11,11 @@ function App() {
     const [counterValue, setCounterValue] = useState<number>(startValue)
     const [counterMode, setCounterMode] = useState<MonitorModeType>("count")
     
-    const isStartValueIncorrect = (value: number) => value < 0
-    const isMaxValueIncorrect = (startValue: number, maxValue: number) => maxValue < 0 || maxValue <= startValue
+    const isStartValueIncorrect = (startValue: number) =>
+        startValue < 0 || startValue > 9999
+    
+    const isMaxValueIncorrect = (startValue: number, maxValue: number) =>
+        maxValue < 0 || maxValue > 9999 || maxValue <= startValue
     
     useEffect(() => {
         
