@@ -1,8 +1,8 @@
 import React from 'react';
 import setupStyles from './Setup.module.css'
-import panelStyles from './Panel.module.css'
-import {Button} from "./Button";
-import {InputNumber} from "./InputNumber";
+import panelStyles from '../common/Panel.module.css'
+import {Button} from "../common/Button";
+import {InputNumber} from "../common/InputNumber";
 
 type SetupType = {
     onConfirm: () => void

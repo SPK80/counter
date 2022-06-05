@@ -1,8 +1,8 @@
 import React from 'react';
 import counterStyles from "./Counter.module.css";
-import panelStyles from './Panel.module.css'
+import panelStyles from '../common/Panel.module.css'
 import {Monitor, MonitorModeType} from "./Monitor";
-import {Button} from "./Button";
+import {Button} from "../common/Button";
 
 type CounterType = {
     startValue: number

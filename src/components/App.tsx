@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import s from './App.module.css'
-import {Counter} from "./Counter";
-import {Setup} from "./Setup";
-import {MonitorModeType} from "./Monitor";
+import {Counter} from "./counter/Counter";
+import {Setup} from "./setup/Setup";
+import {MonitorModeType} from "./counter/Monitor";
 
 function App() {
     const defaultStartValue: number = 0;
