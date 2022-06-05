@@ -33,11 +33,13 @@ export const Setup: React.FC<SetupType> = (props) => {
                 captionClassName={setupStyles.caption}
                 error={props.isStartValueIncorrect}
             />
+            
             <Button
                 disabled={props.isSetButtonDisabled}
-                name={'set'}
                 onClick={props.onConfirm}
-            />
+            > set
+            </Button>
+        
         </div>
     );
 }

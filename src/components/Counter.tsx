@@ -41,16 +41,19 @@ export const Counter: React.FC<CounterType> = (props) => {
             />
             
             <div className={counterStyles.buttonsPanel}>
+                
                 <Button
-                    name={'inc'}
                     onClick={props.onClickInc}
                     disabled={isIncBtnDisabled}
-                />
+                > inc
+                </Button>
+                
                 <Button
-                    name={'reset'}
                     onClick={props.onClickReset}
                     disabled={isResetBtnDisabled}
-                />
+                > reset
+                </Button>
+            
             </div>
         
         </div>
