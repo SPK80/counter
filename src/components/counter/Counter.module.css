@@ -1,14 +1,13 @@
 .counter {
-    width: 150px;
     height: 150px;
-    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .buttonsPanel {
-    width: 100%;
     border: 2px solid darkcyan;
     border-radius: 10px;
-
     display: flex;
     justify-content: space-between;
 }

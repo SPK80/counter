@@ -1,4 +1,4 @@
-.panel{
+.panel {
     padding: 10px;
     border: 2px solid darkcyan;
     border-radius: 10px;
@@ -8,4 +8,5 @@
     flex-direction: column;
     justify-content: space-around;
     place-items: center;
+    margin: 5px;
 }

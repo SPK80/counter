@@ -1,9 +1,7 @@
 .setup {
-    width: 150px;
     height: 150px;
-    margin: 5px;
 }
 
-.caption{
+.caption {
     color: yellow;
 }
