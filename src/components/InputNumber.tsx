@@ -14,12 +14,12 @@ type InputType = {
 export const InputNumber: React.FC<InputType> = (props) => {
     
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        const val = e.currentTarget.valueAsNumber
+        const newValue = Math.floor(e.currentTarget.valueAsNumber)
         e.currentTarget.value = ''
-        if (Number.isNaN(val))
+        if (Number.isNaN(newValue))
             props.onChangeValue(0)
         else
-            props.onChangeValue(val)
+            props.onChangeValue(newValue)
     }
     
     const finalCaptionClassName = `${s.caption} ${props.captionClassName ?? ''}`
