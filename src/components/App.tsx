@@ -5,9 +5,11 @@ import {Setup} from "./Setup";
 import {MonitorModeType} from "./Monitor";
 
 function App() {
+    const defaultStartValue: number = 0;
+    const defaultMaxValue: number = 5;
     
-    const [startValue, setStartValue] = useState<number>(0)
-    const [maxValue, setMaxValue] = useState<number>(5)
+    const [startValue, setStartValue] = useState<number>(defaultStartValue)
+    const [maxValue, setMaxValue] = useState<number>(defaultMaxValue)
     const [counterValue, setCounterValue] = useState<number>(startValue)
     const [counterMode, setCounterMode] = useState<MonitorModeType>("count")
     
@@ -19,11 +21,11 @@ function App() {
     
     useEffect(() => {
         
-        let sv: number = +(localStorage['startValue'] ?? '0')
+        let sv: number = +(localStorage.getItem("startValue") ?? defaultStartValue.toString())
         sv = Number.isNaN(sv) ? 0 : sv
         setStartValue(sv)
         
-        let mv: number = +(localStorage['maxValue'] ?? '5')
+        let mv: number = +(localStorage.getItem("maxValue") ?? defaultMaxValue.toString())
         mv = Number.isNaN(sv) ? 0 : mv
         setMaxValue(mv)
         
@@ -60,8 +62,8 @@ function App() {
         setMaxValue(maxValue)
         setCounterValue(startValue)
         setCounterMode("count")
-        localStorage['startValue'] = startValue
-        localStorage['maxValue'] = maxValue
+        localStorage.setItem('startValue', startValue.toString())
+        localStorage.setItem('maxValue', maxValue.toString())
         
     };
     
