@@ -2,6 +2,6 @@
 
 This is my counter in [IT-Incubator](https://it-incubator.ru/ru/)
 
-First stage is done.
+Deployed on GitHub Pages - https://spk80.github.io/counter/
 
 Flew! 🚀
