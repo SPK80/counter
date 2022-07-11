@@ -11,7 +11,7 @@ type InputType = {
     errorClassName?: string
 }
 
-export const InputNumber: React.FC<InputType> = (props) => {
+export const InputNumber: React.FC<InputType> = React.memo((props) => {
     
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const newValue = Math.floor(e.currentTarget.valueAsNumber)
@@ -34,4 +34,4 @@ export const InputNumber: React.FC<InputType> = (props) => {
                 onChange={onChangeHandler}/>
         </div>
     )
-}
+})

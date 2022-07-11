@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import setupStyles from './Setup.module.css'
 import panelStyles from '../common/Panel.module.css'
 import {Button} from "../common/Button";
@@ -33,24 +33,24 @@ export const Setup: React.FC = () => {
     
     const dispatch = useDispatch()
     
-    const onChangeMaxValueHandler = (newMaxValue: number) => {
+    const onChangeMaxValueHandler = useCallback((newMaxValue: number) => {
         dispatch(setMaxValueAC(newMaxValue))
         if (isErrorInSetup(startValue, newMaxValue)) dispatch(setCounterModeAC("error"))
         else dispatch(setCounterModeAC("info"))
-    }
+    }, [])
     
-    const onChangeStartValueHandler = (newStartValue: number) => {
+    const onChangeStartValueHandler = useCallback((newStartValue: number) => {
         dispatch(setStartValueAC(newStartValue))
         if (isErrorInSetup(newStartValue, maxValue)) dispatch(setCounterModeAC("error"))
         else dispatch(setCounterModeAC("info"))
-    }
+    }, [])
     
-    const onConfirmHandler = () => {
+    const onConfirmHandler = useCallback(() => {
         dispatch(setCounterModeAC("count"))
         dispatch(resetCounterAC())
         // localStorage.setItem('startValue', startValue.toString())
         // localStorage.setItem('maxValue', maxValue.toString())
-    }
+    }, [])
     
     return (
         <div className={setupStyles.setup + ' ' + panelStyles.panel}>

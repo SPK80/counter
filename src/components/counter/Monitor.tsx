@@ -4,12 +4,13 @@ import s from './Monitor.module.css'
 export type MonitorModeType = 'count' | 'info' | 'error'
 
 type MonitorPropsType = {
-    data: string
     mode: MonitorModeType
+    data: string
     isMaxValue: boolean
 }
 
-export const Monitor: React.FC<MonitorPropsType> = (props) => {
+export const Monitor: React.FC<MonitorPropsType> = React.memo((props) => {
+    
     let className = s.monitor;
     switch (props.mode) {
         case "count":
@@ -23,4 +24,4 @@ export const Monitor: React.FC<MonitorPropsType> = (props) => {
             break
     }
     return <div className={className}> {props.data} </div>
-}
+})

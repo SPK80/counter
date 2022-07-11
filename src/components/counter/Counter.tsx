@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import counterStyles from "./Counter.module.css";
 import panelStyles from '../common/Panel.module.css'
 import {Monitor} from "./Monitor";
@@ -35,6 +35,9 @@ export const Counter: React.FC = () => {
             monitorData = errorMessage
     }
     
+    const onClickIncHandler = useCallback(() => dispatch(incrementCounterAC()), [])
+    const onClickResetHandler = useCallback(() => dispatch(resetCounterAC()), [])
+    
     return (
         <div className={counterStyles.counter + ' ' + panelStyles.panel}>
             <Monitor
@@ -44,12 +47,12 @@ export const Counter: React.FC = () => {
             />
             <div className={counterStyles.buttonsPanel}>
                 <Button
-                    onClick={() => dispatch(incrementCounterAC())}
+                    onClick={onClickIncHandler}
                     disabled={isIncBtnDisabled}
                 > inc
                 </Button>
                 <Button
-                    onClick={() => dispatch(resetCounterAC())}
+                    onClick={onClickResetHandler}
                     disabled={isResetBtnDisabled}
                 > reset
                 </Button>
