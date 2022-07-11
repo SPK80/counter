@@ -1,29 +1,32 @@
 import React from 'react';
 import counterStyles from "./Counter.module.css";
 import panelStyles from '../common/Panel.module.css'
-import {Monitor, MonitorModeType} from "./Monitor";
+import {Monitor} from "./Monitor";
 import {Button} from "../common/Button";
+import {useDispatch, useSelector} from "react-redux";
+import {CounterStateType, incrementCounterAC, resetCounterAC} from "../../bll/counterReducer";
 
-type CounterType = {
-    startValue: number
-    maxValue: number
-    counterValue: number
-    onClickInc: () => void
-    onClickReset: () => void
-    mode: MonitorModeType
-}
-
-export const Counter: React.FC<CounterType> = (props) => {
+export const Counter: React.FC = () => {
+    
+    const {
+        value,
+        maxValue,
+        startValue,
+        counterMode
+    } = useSelector<CounterStateType, CounterStateType>(state => state)
+    
+    const dispatch = useDispatch()
+    
     const errorMessage = 'Incorrect value'
     const infoMessage = "Enter values and press 'set'"
     
-    const isIncBtnDisabled: boolean = props.mode !== "count" || props.counterValue === props.maxValue
-    const isResetBtnDisabled: boolean = props.mode !== "count" || props.counterValue === props.startValue
+    const isIncBtnDisabled: boolean = counterMode !== "count" || value === maxValue
+    const isResetBtnDisabled: boolean = counterMode !== "count" || value === startValue
     
     let monitorData = ''
-    switch (props.mode) {
+    switch (counterMode) {
         case "count" || "isMaxVal":
-            monitorData = props.counterValue.toString()
+            monitorData = value.toString()
             break
         case "info":
             monitorData = infoMessage
@@ -35,27 +38,22 @@ export const Counter: React.FC<CounterType> = (props) => {
     return (
         <div className={counterStyles.counter + ' ' + panelStyles.panel}>
             <Monitor
-                mode={props.mode}
+                mode={counterMode}
                 data={monitorData}
-                isMaxValue={props.counterValue === props.maxValue}
+                isMaxValue={value === maxValue}
             />
-            
             <div className={counterStyles.buttonsPanel}>
-                
                 <Button
-                    onClick={props.onClickInc}
+                    onClick={() => dispatch(incrementCounterAC())}
                     disabled={isIncBtnDisabled}
                 > inc
                 </Button>
-                
                 <Button
-                    onClick={props.onClickReset}
+                    onClick={() => dispatch(resetCounterAC())}
                     disabled={isResetBtnDisabled}
                 > reset
                 </Button>
-            
             </div>
-        
         </div>
     )
 }
