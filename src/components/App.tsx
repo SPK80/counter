@@ -1,17 +1,27 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import s from './App.module.css'
 import {Counter} from "./counter/Counter";
 import {Setup} from "./setup/Setup";
-import {MonitorModeType} from "./counter/Monitor";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    CounterStateType,
+    incrementCounterAC,
+    resetCounterAC, setCounterModeAC,
+    setMaxValueAC,
+    setStartValueAC
+} from "../bll/counterReducer";
 
 function App() {
-    const defaultStartValue: number = 0;
-    const defaultMaxValue: number = 5;
     
-    const [startValue, setStartValue] = useState<number>(defaultStartValue)
-    const [maxValue, setMaxValue] = useState<number>(defaultMaxValue)
-    const [counterValue, setCounterValue] = useState<number>(startValue)
-    const [counterMode, setCounterMode] = useState<MonitorModeType>("count")
+    const {
+        value,
+        maxValue,
+        startValue,
+        counterMode
+    } = useSelector<CounterStateType, CounterStateType>(state => state)
+    
+    const dispatch = useDispatch()
+    
     
     const isStartValueIncorrect = (startValue: number) =>
         startValue < 0 || startValue > 9999
@@ -19,18 +29,17 @@ function App() {
     const isMaxValueIncorrect = (startValue: number, maxValue: number) =>
         maxValue < 0 || maxValue > 9999 || maxValue <= startValue
     
-    useEffect(() => {
-        
-        let sv: number = +(localStorage.getItem("startValue") ?? defaultStartValue.toString())
-        sv = Number.isNaN(sv) ? 0 : sv
-        setStartValue(sv)
-        
-        let mv: number = +(localStorage.getItem("maxValue") ?? defaultMaxValue.toString())
-        mv = Number.isNaN(sv) ? 0 : mv
-        setMaxValue(mv)
-        
-        setCounterValue(sv)
-    }, [])
+    // const defaultStartValue: number = 0;
+    // const defaultMaxValue: number = 5;
+    // useEffect(() => {
+    // let sv: number = +(localStorage.getItem("startValue") ?? defaultStartValue.toString())
+    // sv = Number.isNaN(sv) ? 0 : sv
+    // setStartValue(sv)
+    //     let mv: number = +(localStorage.getItem("maxValue") ?? defaultMaxValue.toString())
+    //     mv = Number.isNaN(sv) ? 0 : mv
+    //     setMaxValue(mv)
+    //     setCounterValue(sv)
+    // }, [])
     
     const isErrorInSetup = (startValue: number, maxValue: number) =>
         isStartValueIncorrect(startValue) || isMaxValueIncorrect(startValue, maxValue)
@@ -38,33 +47,30 @@ function App() {
     const isSetButtonDisabled = counterMode === "count" || isErrorInSetup(startValue, maxValue)
     
     const onChangeMaxValueHandler = (newMaxValue: number) => {
-        setMaxValue(newMaxValue)
-        if (isErrorInSetup(startValue, newMaxValue)) setCounterMode("error")
-        else setCounterMode("info")
+        dispatch(setMaxValueAC(newMaxValue))
+        if (isErrorInSetup(startValue, newMaxValue)) dispatch(setCounterModeAC("error"))
+        else dispatch(setCounterModeAC("info"))
     }
     
     const onChangeStartValueHandler = (newStartValue: number) => {
-        setStartValue(newStartValue)
-        if (isErrorInSetup(newStartValue, maxValue)) setCounterMode("error")
-        else setCounterMode("info")
+        dispatch(setStartValueAC(newStartValue))
+        if (isErrorInSetup(newStartValue, maxValue)) dispatch(setCounterModeAC("error"))
+        else dispatch(setCounterModeAC("info"))
     }
     
     const onClickIncHandler = () => {
-        setCounterValue(counterValue + 1)
-    };
+        dispatch(incrementCounterAC())
+    }
     
     const onClickResetHandler = () => {
-        setCounterValue(startValue)
+        dispatch(resetCounterAC())
     };
     
     const onConfirmHandler = () => {
-        setStartValue(startValue)
-        setMaxValue(maxValue)
-        setCounterValue(startValue)
-        setCounterMode("count")
-        localStorage.setItem('startValue', startValue.toString())
-        localStorage.setItem('maxValue', maxValue.toString())
-        
+        dispatch(setCounterModeAC("count"))
+        dispatch(resetCounterAC())
+        // localStorage.setItem('startValue', startValue.toString())
+        // localStorage.setItem('maxValue', maxValue.toString())
     };
     
     return (
@@ -83,7 +89,7 @@ function App() {
                 mode={counterMode}
                 startValue={startValue}
                 maxValue={maxValue}
-                counterValue={counterValue}
+                counterValue={value}
                 onClickInc={onClickIncHandler}
                 onClickReset={onClickResetHandler}
             />
